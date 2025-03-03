@@ -64,6 +64,35 @@ Hilo : 3 en ejecución ( i = 3) Tiempo ejecucion 11201
 Todos los hilos han terminado.
 ```
 
+## Ejemplo03.cpp
+
+En este ejemplo utilizamos para "centralizar" el proceso de escritura por pantalla a una cola. Lanzamos un proceso reader que va a ser el encargado de escribir en pantalla. Como la pantalla es un recurso que al compartirlo puede ocasionar problemas, utilizamos este reader que leera los mensajes de la cola y los ira escribiendo en la pantalla. De esta manera solamente un proceso tiene acceso al area critica.
+
+Los procesos normales solamente agregan su mensaje a la cola, y estos seran atendidos en orden. De esta manera el acceso a la zona critica lo realiza un solo proceso, evitando conflictos. 
+
+Esta es otra forma para prevenir los bloqueos o abrazos mortales. 
+
+Ejemplo de salida: 
+
+```
+Inicializando reader.
+Iniciando hilos. 
+Inicializando reader 
+Hilo : 1 en ejecución ( i = 1) Tiempo ejecucion 0
+Hilo : 2 en ejecución ( i = 1) Tiempo ejecucion 0
+Hilo : 3 en ejecución ( i = 1) Tiempo ejecucion 0
+Hilo : 1 en ejecución ( i = 2) Tiempo ejecucion 666
+Hilo : 1 en ejecución ( i = 3) Tiempo ejecucion 1332
+Hilo : 2 en ejecución ( i = 2) Tiempo ejecucion 1333
+Hilo : 3 en ejecución ( i = 2) Tiempo ejecucion 2000
+Hilo : 2 en ejecución ( i = 3) Tiempo ejecucion 2666
+Hilo : 3 en ejecución ( i = 3) Tiempo ejecucion 4000
+Todos los hilos han terminado.
+Finalizando reader 
+Reader finalizado.
+```
+
+
 # A futuro.
 
 Voy a agregar mas ejemplos usando semaforos, colas y crearé un archivo Makefile para compilar todos los ejemplos.
