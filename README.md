@@ -34,6 +34,36 @@ Hilo : 4 en ejecución ( i = 3) Tiempo ejecucion 5332
 Todos los hilos han terminado.
 ```
 
+## Ejemplo02.cpp
+
+En este ejemplo, solamente un proceso puede estar ejecutando su "seccion critica". Cada proceso va a iterar 3 veces y va a terminar. Si no puede ejecutarse va a esperar algunos milisegundos para intentar nuevamente tomar el semaforo. De esta forma se bloquea el acceso en paralelo a un recurso exclusivo. 
+
+Para hacer este bloqueo en este ejemplo se utilizan semaforos. De esta forma solamente un proceso puede estar en ejecucion cada vez.
+
+Ejemplo de salida : 
+
+```
+Iniciando hilos. 
+Hilo : 1 en ejecución ( i = 1) Tiempo ejecucion 0
+Hilo : 2 en espera por semaforo ( i = 1) Tiempo ejecucion 0
+Hilo : 3 en espera por semaforo ( i = 1) Tiempo ejecucion 0
+Hilo : 1 en ejecución ( i = 2) Tiempo ejecucion 666
+Hilo : 2 en espera por semaforo ( i = 1) Tiempo ejecucion 1200
+Hilo : 3 en espera por semaforo ( i = 1) Tiempo ejecucion 1200
+Hilo : 1 en ejecución ( i = 3) Tiempo ejecucion 1332
+Hilo : 2 en ejecución ( i = 1) Tiempo ejecucion 2400
+Hilo : 3 en espera por semaforo ( i = 1) Tiempo ejecucion 2400
+Hilo : 3 en espera por semaforo ( i = 1) Tiempo ejecucion 3600
+Hilo : 2 en ejecución ( i = 2) Tiempo ejecucion 3733
+Hilo : 3 en espera por semaforo ( i = 1) Tiempo ejecucion 4800
+Hilo : 2 en ejecución ( i = 3) Tiempo ejecucion 5066
+Hilo : 3 en espera por semaforo ( i = 1) Tiempo ejecucion 6000
+Hilo : 3 en ejecución ( i = 1) Tiempo ejecucion 7200
+Hilo : 3 en ejecución ( i = 2) Tiempo ejecucion 9200
+Hilo : 3 en ejecución ( i = 3) Tiempo ejecucion 11201
+Todos los hilos han terminado.
+```
+
 # A futuro.
 
 Voy a agregar mas ejemplos usando semaforos, colas y crearé un archivo Makefile para compilar todos los ejemplos.
