@@ -5,14 +5,17 @@
 #include <queue>
 
 
+// Creamos una estructura con el mensaje que se va a enviar a la cola de procesos
 struct msg{
     int proceso;
     int time;
     int iteracion;
 };
 
+//Creamos la cola principal del programa
 std::queue<msg> cola;
 
+// Envia el mensaje de termino del lector de la cola
 bool terminarReader = false;
 
 /**
@@ -22,19 +25,24 @@ void queueReader( )
 {
 
     std::cout << "Inicializando reader " << std::endl;
+    // Vamos a estar elementos hasta que se envie el mensaje de termino. 
     while(  !terminarReader )
     {
+        // Verificamos si la cola tiene un elemento.
         if( !cola.empty() )
         {
+            // Obtenemos el elemento del frente y lo eliminamos de la cola. 
             auto element = cola.front();
             cola.pop();
+
             // Imprimimos por consola el resultado. 
             std::cout << "Hilo : " << ( element.proceso +1 ) << " en ejecución ( i = " << (element.iteracion + 1) << ") Tiempo ejecucion " <<  element.time << std::endl;            
 
-            //Ponemos un retraso 
+            //Ponemos un retraso de procesamiento 
             std::this_thread::sleep_for( std::chrono::milliseconds ( 500  ) );
         }
     }
+    //Finalizado el reader, terminamos y liberamos la memoria
     std::cout << "Finalizando reader " << std::endl;
 }
 
@@ -48,8 +56,6 @@ void tarea(int id , int time )
     // Tomamos el tiempo de inicio de la tarea
     auto inicio = std::chrono::high_resolution_clock::now(); 
     
-    // Debe ejecutarse solamente 3 veces pero debe bloquear la seccion critica
-    int i = 0; 
     // Asumimos que la tarea se ejecutara 3 veces y tomara un tiempo time en cada ciclo.
     for(int i = 0 ; i < 3 ; i++)
     {
@@ -57,12 +63,14 @@ void tarea(int id , int time )
         auto fin = std::chrono::high_resolution_clock::now(); 
         auto duracion =  std::chrono::duration_cast<std::chrono::milliseconds> ( fin - inicio );
 
+        // Creamos el mensaje para la cola
         struct msg element;
 
         element.proceso = id;
         element.iteracion = i ;
         element.time = duracion.count(); 
         
+        // Agregamos el mensaje a la cola para su procesamiento.
         cola.push( element );
 
         // Esperamos time milisegundos para que no se termine tan rapido
