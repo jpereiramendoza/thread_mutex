@@ -20,7 +20,7 @@ void tarea(int id , int time )
     
     // Debe ejecutarse solamente 3 veces pero debe bloquear la seccion critica
     int i = 0; 
-    // Asumimos que la tarea se ejecutara 4 veces y tomara un tiempo time en cada ciclo.
+    // Asumimos que la tarea se ejecutara 3 veces y tomara un tiempo time en cada ciclo.
     while( i < 3)
     {
         // Calculamos la duracion que lleva la tarea
@@ -35,13 +35,15 @@ void tarea(int id , int time )
             
             // Esperamos time milisegundos para que no se termine tan rapido
             std::this_thread::sleep_for( std::chrono::milliseconds ( time  ) );
+            // contamos la ejecucion del recurso 
             i++;
-            mtx.unlock(); // Liberar el mutex
+            // liberamos el semaforo.
+            mtx.unlock(); 
         }
         else 
         {
-            std::cout << "Hilo : " << (id+1) << " en espera por semaforo ( i = " << (i + 1) << ") Tiempo ejecucion " <<  duracion.count()  << std::endl;
-            // Esperamos 1200 milisegundos para que no se termine tan rapido
+            std::cout << "Hilo : " << (id+1) << " en espera por mutex ( i = " << (i + 1) << ") Tiempo ejecucion " <<  duracion.count()  << std::endl;
+            // Esperamos 1200 milisegundos para consultar nuevamente si el recurso esta disponible.
             std::this_thread::sleep_for( std::chrono::milliseconds ( 1200  ) );
         }
     }
@@ -49,7 +51,7 @@ void tarea(int id , int time )
 
 int main() 
 {   
-    //Numero total de hilos
+    //Numero total de hilos a ejecutar
     const int num_hilos = 3;
 
     //Vector que mantiene 
