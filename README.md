@@ -4,6 +4,12 @@ Una de las cosas que incluyó C++ 11 es el manejo de hilos. A pesar de que esta 
 
 En estos archivos presento algunos ejemplos de uso de Hilos y también semáforos para exclusión al momneto de acceder a un recurso compartido. Recordar, que al incorporar hilos a un programa, vamos a tener varios "agentes" intentando acceder a un recurso que es único, y en el cual solamente un "agente" puede acceder. Esto significa que mientras este agente no termine el uso del recurso compartido, no se debe permitir que otro proceso acceda a él. Una de las opciones de control es mediante el uso de semáforos.
 
+Para compilar los ejemplos usar g++, por ejemplo. 
+
+```
+g++ ejemplo01.cpp -o ejemplo01 
+```
+
 
 ## Ejemplo01.cpp
 
@@ -27,3 +33,7 @@ Hilo : 3 en ejecución ( i = 3) Tiempo ejecucion 4000
 Hilo : 4 en ejecución ( i = 3) Tiempo ejecucion 5332
 Todos los hilos han terminado.
 ```
+
+# A futuro.
+
+Voy a agregar mas ejemplos usando semaforos, colas y crearé un archivo Makefile para compilar todos los ejemplos.
