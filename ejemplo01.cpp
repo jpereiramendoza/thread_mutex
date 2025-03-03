@@ -16,10 +16,10 @@
 void tarea(int id , int time ) 
 {
     // Asumimos que la tarea se ejecutara 4 veces y tomara un tiempo time en cada ciclo.
-    for(int i = 0 ; i < 4 ; i++)
+    for(int i = 0 ; i < 3 ; i++)
     {
-        std::cout << "Hilo : " << (id+1) << " en ejecución ( i = " << i << ")" << std::endl;
-        // Esperamos por la tarea
+        std::cout << "Hilo : " << (id+1) << " en ejecución ( i = " << (i + 1) << ")" << std::endl;
+        // Esperamos time milisegundos para que no se termine tan rapido
         std::this_thread::sleep_for( std::chrono::milliseconds ( time  ) );
     }
 }
@@ -27,7 +27,7 @@ void tarea(int id , int time )
 int main() 
 {   
     //Numero total de hilos
-    const int num_hilos = 4;
+    const int num_hilos = 3;
 
     //Vector que mantiene 
     std::vector<std::thread> hilos;
@@ -38,11 +38,12 @@ int main()
         hilos.push_back( std::thread( tarea, i , ( (i+1) * 2000 / 3  )) );
     }
 
-    
+    // Recorre los threads que tengo y va esperando a que todos terminen. s
     for (auto& hilo : hilos) {
         hilo.join();
     }
 
+    // Hilos finalizados. 
     std::cout << "Todos los hilos han terminado." << std::endl;
 
     return 0;
