@@ -83,6 +83,7 @@ int main()
     //Numero total de hilos a ejecutar
     const int num_hilos = 3;
 
+    //Lanzamos el proceso del reader
     std::cout << "Inicializando reader." << std::endl;
     std::thread queueExecutor( queueReader ); 
 
